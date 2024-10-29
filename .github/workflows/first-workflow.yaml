@@ -16,7 +16,7 @@ jobs:
         - name: Cowsays Action
           uses: scottbrenner/cowsays@v1
           with:
-          text: "Ready for prod–ship it!"
-          color: magenta
+            text: "Ready for prod–ship it!"
+            color: magenta
 
         
