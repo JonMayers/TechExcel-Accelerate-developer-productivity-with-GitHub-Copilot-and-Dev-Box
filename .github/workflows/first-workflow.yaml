@@ -13,10 +13,10 @@ jobs:
     job2:
       runs-on: ubuntu-latest
       steps:
-        - name: Cowsays Action
-          uses: scottbrenner/cowsays@v1
+        - name: Cowsays
+          uses: mscoutermarsh/cowsays@v1
           with:
-            text: "Ready for prod–ship it!"
-            color: magenta
+            text: "Ready for prod–-ship it!"
+            color: "magenta"
 
         
