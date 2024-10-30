@@ -1,4 +1,12 @@
 name: .NET Core
+env:
+  ACR_USERNAME: ${{ secrets.ACR_USERNAME }}
+  ACR_PASSWORD: ${{ secrets.ACR_PASSWORD }}
+  ACR_LOGIN_SERVER: ${{ secrets.ACR_LOGIN_SERVER }}
+  registryName: oi4jrn5wsujiampnpreg.azurecr.io
+  repositoryName: techexcel/dotnetcoreapp
+  dockerFolderPath: ./src/Application/src/RazorPagesTestSample
+  tag: ${{ github.run_number }}
 
 on:
   push:
@@ -15,7 +23,6 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
@@ -35,3 +42,19 @@ jobs:
 
     - name: Test
       run: dotnet test --no-build --verbosity normal ./src/Application/tests/RazorPagesTestSample.Tests/RazorPagesTestSample.Tests.csproj
+
+  dockerBuildPush:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Login to Azure Container Registry
+      run: echo ${{ secrets.ACR_PASSWORD }} | docker login ${{ secrets.ACR_LOGIN_SERVER }} -u ${{ secrets.ACR_USERNAME }} --password-stdin
+
+    - name: Build Docker image
+      run: docker build -t ${{ env.registryName }}/${{ env.repositoryName }}:${{ env.tag }} ${{ env.dockerFolderPath }}
+
+    - name: Push Docker image
+      run: docker push ${{ env.registryName }}/${{ env.repositoryName }}:${{ env.tag }}
