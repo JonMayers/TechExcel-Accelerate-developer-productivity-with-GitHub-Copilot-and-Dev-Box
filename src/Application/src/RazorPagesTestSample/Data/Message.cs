@@ -6,12 +6,12 @@ namespace RazorPagesTestSample.Data
     /// <summary>
     /// Represents a message with an ID and text content.
     /// </summary>
-    /// public class Message
+    public class Message
     {
         /// <summary>
         /// Gets or sets the unique identifier for the message.
         /// </summary>
-        /// public int Id { get; set; }
+        public int Id { get; set; }
 
         /// <summary>
         /// Gets or sets the text content of the message.
